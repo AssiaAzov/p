@@ -23,7 +23,13 @@ m = int(data_list[1])
 y = int(data_list[2])
 
 
-while len(data_list[0]) != 2 or d < 1 or d > 31 or m < 1 or m > 12 or len(data_list[1]) != 2 or len(data_list[2]) != 4 or y < 1 or y > 9999 or ((m == 2 or m == 4 or m == 6 or m == 11) and d == 31):
+while len(data_list[0]) != 2 \
+        or d < 1 or d > 31 \
+        or m < 1 or m > 12 \
+        or len(data_list[1]) != 2 \
+        or len(data_list[2]) != 4\
+        or y < 1 or y > 9999 \
+        or ((m == 2 or m == 4 or m == 6 or m == 11) and d == 31):
     data_str = input('Ошибка ввода! Попробуйте еще раз: ')
     data_list = data_str.split('.')
     d = int(data_list[0])
