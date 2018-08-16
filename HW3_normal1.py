@@ -27,7 +27,9 @@ with open('salary.txt','a', encoding='utf-8') as file:
 with open('salary.txt') as f:
     for line in f.readlines():
         str = line.split()
-        print(str[0].upper(), int(int(str[2])*0.87))
+        zp = int(int(str[2])*0.87)
+        nm = str[0].upper()
+        print(nm, zp)
 
 
 
