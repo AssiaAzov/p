@@ -33,37 +33,42 @@ def attack(napad, jertva):
     jertva['health'] = jertva['health'] - hit(napad, jertva)
     return jertva['health']
 
+def write_in_file(file, dict):
+    with open(file, 'w+', encoding='utf-8') as file:
+        line = str(dict) + '\n'
+        file.write(line)
 
-with open('player.txt','w+', encoding='utf-8') as file:
-    line = str(player) + '\n'
-    file.write(line)
+def read_file(file, dict_pers):
+    with open(file, encoding='utf-8') as f:
+        line = f.readline()
+        dict_pers = eval(line)
+        print(dict_pers)
 
-with open('enemy.txt','w+', encoding='utf-8') as file:
-    line = str(enemy) + '\n'
-    file.write(line)
+def read_file(file):
+    with open(file, encoding='utf-8') as f:
+        line = f.readline()
+        return eval(line)
+
+def print_win(dict_pers):
+    print('Победил: ', dict_pers['name'], 'Осталось ед. жизни: ', dict_pers['health'])
 
 
-with open('player.txt', encoding='utf-8') as f:
-    line = f.readline()
-    dict_player = eval(line)
 
+write_in_file('player.txt', player)
+write_in_file('enemy.txt', enemy)
 
-with open('enemy.txt', encoding='utf-8') as f:
-    line = f.readline()
-    dict_enemy = eval(line)
-
+dict_player = read_file('player.txt')
+dict_enemy = read_file('enemy.txt')
 
 while dict_player['health'] > 0 and dict_enemy['health'] > 0:
     attack(dict_player, dict_enemy)
-    print(dict_player['health'],dict_enemy['health'])
     if dict_enemy['health'] <= 0:
-        print('Победил: ', dict_player['name'], 'Осталось ед. жизни: ', dict_player['health'])
+        print_win(dict_player)
         break
     else:
         attack(dict_enemy, dict_player)
-        print(dict_player['health'], dict_enemy['health'])
 else:
     if dict_player['health'] > 0:
-        print('Победил: ', dict_player['name'], 'Осталось ед. жизни: ', dict_player['health'] )
+        print_win(dict_player)
     else:
-        print('Победил: ', dict_enemy['name'], 'Осталось ед. жизни: ', dict_enemy['health'])
+        print_win(dict_enemy)
