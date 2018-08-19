@@ -42,36 +42,46 @@ def process_user_choice(choice, person): #исправление: убрала �
     if choice == 1:
         print(check_account(person))
     elif choice == 2:
-        count = float(input('Сумма к снятию:'))
-        print(withdraw_money(person, count))
+        try:                             #добавила ловилку ошибки на ввод суммы
+            count = float(input('Сумма к снятию:'))
+            print(withdraw_money(person, count))
+        except ValueError:
+            print('Вы должны ввести цифры, а не текст!')
 
 
-def get_user_choice(): #дописала ловилку ошибки на ввод выбора действий
-    try:
-        choice = int(input('Выберите пункт:\n'
-                           '1. Проверить баланс\n'
-                           '2. Снять деньги\n'
-                           '3. Выход\n'
-                           '---------------------\n'
-                           'Ваш выбор:'))
-        return choice
-    except ValueError:
-        print('Вы должны ввести цифры, а не текст!')
+def get_user_choice():            #дописала ловилку ошибки на ввод выбора действий. спрашиваем пока не введут 1, 2 или 3
+    while ValueError or (choice not in [1,2,3]):
+        try:
+            choice = int(input('Выберите пункт:\n'
+                               '1. Проверить баланс\n'
+                               '2. Снять деньги\n'
+                               '3. Выход\n'
+                               '---------------------\n'
+                               'Ваш выбор:'))
+            return choice
+        except ValueError:
+            print('Вы должны ввести цифры, а не текст!')
 
 
+def get_user_number():            #ловим ошибку на вводе данных, спрашиваем пока не введут цифры
+    while ValueError:
+        try:
+            card_number, pin_code = input('Введите номер карты и пин код через пробел:').split()
+            card_number = int(card_number)
+            pin_code = int(pin_code)
+            return card_number, pin_code
+        except ValueError:
+            print('Вы должны ввести только цифры через пробел!')
 
 
 def start():
-    card_number, pin_code = input('Введите номер карты и пин код через пробел:').split()
-
-    card_number = int(card_number)
-    pin_code = int(pin_code)
+    card_number, pin_code = get_user_number()     #ловим ошибку ввода карты и пина
     person = get_person_by_card(card_number)
 
     if person and is_pin_valid(person, pin_code):
         while True:
-            choice = get_user_choice()            #ловим ошибку, если ввели текст вместо цифр:)(просто так для практики)
-            if choice != 1 and choice != 2:       #изм усл для выхода из цикла: выход если что угодно кроме 2 и 1
+            choice = get_user_choice()            #ловим ошибку ввода выбора действий
+            if choice == 3:
                 break
             process_user_choice(choice, person)
 
