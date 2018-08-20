@@ -5,5 +5,5 @@
 fruits1 = ['яблоко', 'персик', 'апельсин', 'слива', 'груша', 'банан', 'абрикос', 'киви']
 fruits2 = ['киви', 'манго', 'банан', 'папайа', 'апельсин', 'гранат', 'ананас']
 
-fruits = [fruits2[i] for i in range(len(fruits2)) if fruits2[i] in fruits1]
+fruits = [i for i in fruits2 if i in fruits1]
 print(fruits)
