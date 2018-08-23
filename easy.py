@@ -10,7 +10,7 @@ def files_in_folder():
 
 
 def create_Ndir(n):
-    for i in range(1,n):
+    for i in range(1,n+1):
         try:
             os.mkdir('dir_' + str(i))
         except FileExistsError:
@@ -26,7 +26,7 @@ def create_dir(new_name):
 
 
 def remove_dir(n):
-    for i in range(1,n):
+    for i in range(1,n+1):
         os.rmdir('dir_' + str(i))
 
 def delete_dir(name):
